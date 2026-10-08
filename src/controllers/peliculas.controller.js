@@ -108,7 +108,67 @@ const controladorPeliculas = {
                 error: error.message
             });
         }
-    }
+    },
+    actualizarPelicula: async (req, res) => {
+        try {
+            const pelicula = req.body;
+
+            const camposRequeridos = [
+                'codigo_pelicula',
+                'nombre',
+                'genero_id',
+                'duracion',
+                'clasificacion',
+                'sala',
+                'precio',
+                'url_image',
+                'id'
+            ];
+
+
+
+            const query = `
+                UPDATE  peliculas 
+                SET codigo_pelicula = ? ,
+                    nombre = ? ,
+                    genero_id = ? ,
+                    duracion = ? ,
+                    clasificacion = ? ,
+                    sala = ? ,
+                    precio = ? ,
+                    url_image = ? 
+                
+                WHERE id = ?
+            `;
+
+            const valores = camposRequeridos.map(
+                campo => pelicula[campo]
+            );
+
+            const [resultado] = await pool.execute(query, valores);
+
+            return res.status(201).json({
+                message: 'Película actualizada correctamente',
+                pelicula: {
+                    //id: resultado.insertId,
+                    ...Object.fromEntries(
+                        camposRequeridos.map(campo => [
+                            campo,
+                            pelicula[campo]
+                        ])
+                    )
+                }
+            });
+        } catch (error) {
+
+            return res.status(500).json({
+                message: 'No se pudo actualizar la película',
+                error: error.message
+            });
+        }
+    },
+
+
 };
 
 module.exports = controladorPeliculas;

@@ -5,6 +5,7 @@ const express = require('express');
 const cors  = require('cors'); 
 const peliculasRoutes = require('./routes/peliculas.route.js')
 const reservasRoutes = require('./routes/reservas.route.js')
+const categoriaRoutes = require('./routes/categorias.route.js')
 
 const app = express(); 
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json()); 
 app.use(peliculasRoutes)
 app.use(reservasRoutes)
+app.use(categoriaRoutes)
 
 const port = Number(process.env.PORT || 3000);
 
