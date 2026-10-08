@@ -21,7 +21,7 @@ const controladorPeliculas = {
             const pelicula = req.body;
 
             const camposRequeridos = [
-                'id',
+                //'id',
                 'codigo_pelicula',
                 'nombre',
                 'genero_id',
