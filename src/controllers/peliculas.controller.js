@@ -36,7 +36,6 @@ const controladorPeliculas = {
 
             const query = `
                 INSERT INTO peliculas (
-                    id,
                     codigo_pelicula,
                     nombre,
                     genero_id,
@@ -46,7 +45,7 @@ const controladorPeliculas = {
                     precio,
                     url_image
                 )
-                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
             const valores = camposRequeridos.map(
