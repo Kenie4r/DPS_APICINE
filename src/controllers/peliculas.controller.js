@@ -167,7 +167,40 @@ const controladorPeliculas = {
             });
         }
     },
+    eliminarPelicula: async (req, res) => {
+        try {
+            const pelicula = req.body;
 
+            const camposRequeridos = ['id']; //unico campo requerido 
+
+            const query = `DELETE from peliculas WHERE id = ?`;
+
+            const valores = camposRequeridos.map(
+                campo => pelicula[campo]
+            );
+
+            const [resultado] = await pool.execute(query, valores);
+
+            return res.status(201).json({
+                message: 'Película actualizada correctamente',
+                pelicula: {
+                    //id: resultado.insertId,
+                    ...Object.fromEntries(
+                        camposRequeridos.map(campo => [
+                            campo,
+                            pelicula[campo]
+                        ])
+                    )
+                }
+            });
+        } catch (error) {
+
+            return res.status(500).json({
+                message: 'No se pudo eliminar la película',
+                error: error.message
+            });
+        }
+    },
 
 };
 

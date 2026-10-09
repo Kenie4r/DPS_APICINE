@@ -91,6 +91,10 @@ router.get('/reservas/:id', validarId, (req, res) => {
     return controladorReservas.buscarReserva(req, res);
 });
 
+router.get('/reservas/pelicula/:id', validarId, (req, res) => {
+    return controladorReservas.buscarReservaPelicula(req, res);
+});
+
 router.post('/reservas', validarReserva, (req, res) => {
     return controladorReservas.agregarReserva(req, res);
 });

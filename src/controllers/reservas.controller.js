@@ -92,6 +92,30 @@ const controladorReservas = {
             );
         }
     },
+buscarReservaPelicula: async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+
+            const [reservas] = await pool.execute(
+                'SELECT * FROM reservas WHERE id_pelicula = ?',
+                [id]
+            );
+
+            if (reservas.length === 0) {
+                return res.status(404).json({
+                    message: 'Reserva no encontrada'
+                });
+            }
+
+            return res.json(reservas);
+        } catch (error) {
+            return responderError(
+                res,
+                error,
+                'No se pudo obtener la reserva'
+            );
+        }
+    },
 
     agregarReserva: async (req, res) => {
         try {

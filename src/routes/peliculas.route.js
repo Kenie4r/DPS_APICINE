@@ -112,4 +112,8 @@ router.put('/peliculas/:id', (req, res)=> {
 router.get('/peliculas/:id', (req,res)=>{
     controladorPeliculas.buscarPelicula(req,res); 
 })
+
+router.delete('/peliculas/:id',(req, res)=>{
+    controladorPeliculas.eliminarPelicula(req, res);
+})
 module.exports = router;
